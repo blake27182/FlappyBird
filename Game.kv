@@ -1,0 +1,54 @@
+#:kivy 1.11.0
+
+
+<Bird>:
+    canvas:
+        Ellipse:
+            size: 75, 75
+            pos: self.pos
+
+<Pipe>:
+    gap_bottom: self.y + 850
+    gap_top: self.y + 1225
+    canvas:
+        Rectangle:
+            size: 150, 800
+            pos: self.pos
+
+        Rectangle:
+            size: 200, 50
+            pos: self.x - 25, self.y + 800
+
+        Rectangle:
+            size: 150, 1200
+            pos: self.x, self.y + 1200
+
+        Rectangle:
+            size: 200, 50
+            pos: self.x - 25, self.y + 1200
+
+<Background>:
+    bird: bird
+    pipe1: pipe1
+    pipe2: pipe2
+
+    Bird:
+        id: bird
+        center_x: 300
+        center_y: root.center_y
+
+    Pipe:
+        id: pipe1
+        center_x: root.center_x - 100
+        center_y: -400
+
+    Pipe:
+        id: pipe2
+        center_x: root.width
+        center_y: -400
+
+    Label:
+        text: str(root.score)
+        font_size: 80
+        pos: 50, root.height - 150
+        color: 0, 1, 0, 1
