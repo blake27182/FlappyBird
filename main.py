@@ -25,10 +25,11 @@ class Pipe(Widget):
 
 
 class Background(Widget):
-    def __init__(self, **kwargs):
+    def __init__(self, ai_player=None, **kwargs):
         super(Background, self).__init__(**kwargs)
         self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
         self._keyboard.bind(on_key_down=self._on_keyboard_down)
+        self.ai_player = ai_player
 
     def _keyboard_closed(self):
         self._keyboard.unbind(on_key_down=self._on_keyboard_down)
@@ -68,6 +69,12 @@ class Background(Widget):
         if collision(self.bird, self.pipe1) or collision(self.bird, self.pipe2):
             self.game_over()
 
+        if self.ai_player:
+            ai_action = self.ai_player.action_choice(self.bird, self.pipe1,
+                                                     self.pipe2)
+            if ai_action == 1:
+                self.jump()
+
     def jump(self):
         self.bird_speed = 10
 
@@ -85,8 +92,12 @@ class Background(Widget):
 
 
 class Game(App):
+    def __init__(self, ai_player=None, **kwargs):
+        super().__init__(**kwargs)
+        self.ai_player = ai_player
+
     def build(self):
-        display = Background()
+        display = Background(ai_player=self.ai_player)
         Clock.schedule_interval(display.update, 1/60)
         return display
 
