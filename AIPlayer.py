@@ -38,10 +38,22 @@ class AIPlayer:
         else:
             act_values = self.model.predict(state)
             # maybe take a look at what act_values looks like
-            return np.argmax(act_values[0]) 
+            return np.argmax(act_values[0])
 
+    def replay(self, batch_size):
+        mini_batch = random.sample(self.memory, batch_size)
 
+        for state, action, next_state, done, reward in mini_batch:
+            target = (reward
+                      + self.gamma
+                      * np.amax(self.model.predict(next_state)[0]))
+            if done:
+                target = reward
 
+            target_f = self.model.predict(state)
+            target_f[0][action] = target
+            # try verbose to see some good shit
+            self.model.fit(state, target_f, epochs=1, verbose=0)
 
     @staticmethod
     def action_choice(bird, pipe1, pipe2):
