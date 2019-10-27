@@ -3,7 +3,7 @@ import numpy as np
 from collections import deque
 import random
 from keras.models import Sequential
-from keras.layers import Dense, Activation
+from keras.layers import Dense
 from keras.optimizers import Adam
 
 
@@ -14,6 +14,7 @@ class AIPlayer:
         self.memory = deque(maxlen=2000)
         self.gamma = .95
         self.epsilon = 1
+        self.action_bias = 60
         self.epsilon_min = .01
         self.epsilon_decay = .995
         self.learning_rate = .001
@@ -21,9 +22,10 @@ class AIPlayer:
 
     def _build_model(self):
         model = Sequential()
-        model.add(Dense(24, input_dim=self.state_size,
+        model.add(Dense(30, input_dim=self.state_size,
                         activation='relu'))
-        model.add(Dense(24, activation='relu'))
+        model.add(Dense(30, activation='relu'))
+        model.add(Dense(30, activation='relu'))
         model.add(Dense(self.action_size, activation='linear'))
         model.compile(loss='mse',
                       optimizer=Adam(lr=self.learning_rate))
@@ -34,7 +36,8 @@ class AIPlayer:
 
     def act(self, state):
         if np.random.rand() <= self.epsilon:
-            return random.randrange(self.action_size)
+            x = np.random.rand() * self.action_bias
+            return 1 if x < 1 else 0
         else:
             act_values = self.model.predict(state)
             # maybe take a look at what act_values looks like
@@ -72,4 +75,4 @@ class AIPlayer:
 
 
 if __name__ == '__main__':
-    Game(ai_player=AIPlayer()).run()
+    Game(ai_player=AIPlayer(5, 2)).run()
