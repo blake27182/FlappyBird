@@ -16,7 +16,7 @@ class AIPlayer:
         self.epsilon = 1
         self.action_bias = 60
         self.epsilon_min = .01
-        self.epsilon_decay = .995
+        self.epsilon_decay = .9995
         self.learning_rate = .001
         self.model = self._build_model()
 
@@ -31,8 +31,9 @@ class AIPlayer:
                       optimizer=Adam(lr=self.learning_rate))
         return model
 
-    def remember(self, state, action, next_state, done, reward):
-        self.memory.append((state, action, next_state, done, reward))
+    def remember(self, state, action, next_state, done, reward, num_times):
+        for _ in range(num_times):
+            self.memory.append((state, action, next_state, done, reward))
 
     def act(self, state):
         if np.random.rand() <= self.epsilon:
@@ -41,17 +42,20 @@ class AIPlayer:
         else:
             act_values = self.model.predict(state)
             # maybe take a look at what act_values looks like
+            print(act_values[0], state[0][1])
             return np.argmax(act_values[0])
 
     def replay(self, batch_size):
+        if self.epsilon > self.epsilon_min:
+            self.epsilon *= self.epsilon_decay
+
         mini_batch = random.sample(self.memory, batch_size)
 
         for state, action, next_state, done, reward in mini_batch:
-            target = (reward
-                      + self.gamma
-                      * np.amax(self.model.predict(next_state)[0]))
-            if done:
-                target = reward
+            target = reward
+            if not done:
+                target = (reward + self.gamma *
+                          np.amax(self.model.predict(next_state)[0]))
 
             target_f = self.model.predict(state)
             target_f[0][action] = target
@@ -75,4 +79,4 @@ class AIPlayer:
 
 
 if __name__ == '__main__':
-    Game(ai_player=AIPlayer(5, 2)).run()
+    Game(ai_player=AIPlayer(2, 2)).run()

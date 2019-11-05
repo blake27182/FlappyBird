@@ -35,16 +35,17 @@ class Background(Widget):
         )
         self._keyboard.bind(on_key_down=self._on_keyboard_down)
         self.ai_player = ai_player
-
         self.bird_speed = 0
         self.game_speed = 3
-        self.num_episodes = 500
+        self.num_episodes = 2000
         self.curr_episode = 0
         self.done = 0
         self.prev_state = None
         self.prev_action = 0
-        self.best_score = 0
+        self.elapsed = 0
 
+    best_score = NumericProperty(0)
+    epsilon = NumericProperty(1)
     score = NumericProperty(0)
     bird = ObjectProperty(None)
     pipe1 = ObjectProperty(None)
@@ -76,14 +77,17 @@ class Background(Widget):
         if self.score > self.best_score:
             self.best_score = self.score
 
-        if self.bird.y < 0:
+        if self.bird.y < 0 or self.bird.top > self.height:
             self.done = 1
 
-        if collision(self.bird, self.pipe1) \
-                or collision(self.bird, self.pipe2):
-            self.done = 1
+        # comment this out to remove obstacles
+        # if collision(self.bird, self.pipe1) \
+        #         or collision(self.bird, self.pipe2):
+        #     self.done = 1
 
         if self.ai_player:
+            self.epsilon = int(self.ai_player.epsilon * 1000) / 1000
+            self.elapsed += 1
             if self.curr_episode < self.num_episodes:
                 dist1 = self.pipe1.right - self.bird.x
                 dist2 = self.pipe2.right - self.bird.x
@@ -93,24 +97,38 @@ class Background(Widget):
                     closest_pipe = self.pipe2
 
                 state = np.reshape(np.array([
+                    self.bird_speed,
                     self.bird.y,
-                    closest_pipe.x,
-                    closest_pipe.gap_bottom,
-                    closest_pipe.gap_top,
-                    self.game_speed
-                ]), [1, 5])
+                    # closest_pipe.x,
+                    # closest_pipe.gap_bottom,
+                    # closest_pipe.gap_top,
+                    # self.game_speed
+                ]), [1, 2])
                 if self.done:
                     reward = 0
                 else:
                     reward = 1
 
                 if self.prev_state is not None:
+                    # this makes more memories of poor choices
+                    # still experimenting if this improves learning
+                    if self.done:
+                        impact = 5
+                    else:
+                        impact = 1
                     self.ai_player.remember(
-                        self.prev_state, self.prev_action, state, self.done, reward
+                        self.prev_state,
+                        self.prev_action,
+                        state,
+                        self.done,
+                        reward,
+                        impact
                     )
 
                 self.prev_action = action = self.ai_player.act(state)
                 self.prev_state = state
+                if self.elapsed > 32:
+                    self.ai_player.replay(32)
 
                 if action:
                     self.jump()
@@ -126,10 +144,9 @@ class Background(Widget):
         self.bird_speed = 10
 
     def game_over(self):
-        if self.ai_player:
-            self.ai_player.replay(32)
         self.reset_game()
         self.curr_episode += 1
+        print("~~~game end")
 
     def reset_game(self):
         self.score = 0
@@ -140,6 +157,8 @@ class Background(Widget):
         self.pipe1.center_y = -400
         self.pipe2.center_x = self.width
         self.pipe2.center_y = -400
+        self.prev_state = None
+        self.prev_action = 0
 
 
 class Game(App):

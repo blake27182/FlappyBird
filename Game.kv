@@ -11,6 +11,8 @@
     gap_bottom: self.y + 850
     gap_top: self.y + 1225
     canvas:
+        Color:
+            rgba: 0, 0, 0, 0
         Rectangle:
             size: 150, 800
             pos: self.pos
@@ -51,4 +53,16 @@
         text: str(root.score)
         font_size: 80
         pos: 50, root.height - 150
+        color: 0, 1, 0, 1
+
+    Label:
+        text: str(root.epsilon)
+        font_size: 80
+        pos: 250, root.height - 150
+        color: 0, 1, 0, 1
+
+    Label:
+        text: str(root.best_score)
+        font_size: 80
+        pos: 450, root.height - 150
         color: 0, 1, 0, 1
