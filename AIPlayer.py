@@ -16,16 +16,17 @@ class AIPlayer:
         self.epsilon = 1
         self.action_bias = 60
         self.epsilon_min = .01
-        self.epsilon_decay = .9995
+        self.epsilon_decay = .99995
         self.learning_rate = .001
         self.model = self._build_model()
 
     def _build_model(self):
         model = Sequential()
-        model.add(Dense(30, input_dim=self.state_size,
+        model.add(Dense(100, input_dim=self.state_size,
                         activation='relu'))
-        model.add(Dense(30, activation='relu'))
-        model.add(Dense(30, activation='relu'))
+        model.add(Dense(100, activation='relu'))
+        model.add(Dense(75, activation='relu'))
+        model.add(Dense(20, activation='relu'))
         model.add(Dense(self.action_size, activation='linear'))
         model.compile(loss='mse',
                       optimizer=Adam(lr=self.learning_rate))
@@ -42,7 +43,7 @@ class AIPlayer:
         else:
             act_values = self.model.predict(state)
             # maybe take a look at what act_values looks like
-            print(act_values[0], state[0][1])
+            print(act_values[0], np.argmax(act_values[0]))
             return np.argmax(act_values[0])
 
     def replay(self, batch_size):
@@ -79,4 +80,4 @@ class AIPlayer:
 
 
 if __name__ == '__main__':
-    Game(ai_player=AIPlayer(2, 2)).run()
+    Game(ai_player=AIPlayer(6, 2)).run()

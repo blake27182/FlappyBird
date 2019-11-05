@@ -81,9 +81,9 @@ class Background(Widget):
             self.done = 1
 
         # comment this out to remove obstacles
-        # if collision(self.bird, self.pipe1) \
-        #         or collision(self.bird, self.pipe2):
-        #     self.done = 1
+        if collision(self.bird, self.pipe1) \
+                or collision(self.bird, self.pipe2):
+            self.done = 1
 
         if self.ai_player:
             self.epsilon = int(self.ai_player.epsilon * 1000) / 1000
@@ -99,11 +99,11 @@ class Background(Widget):
                 state = np.reshape(np.array([
                     self.bird_speed,
                     self.bird.y,
-                    # closest_pipe.x,
-                    # closest_pipe.gap_bottom,
-                    # closest_pipe.gap_top,
-                    # self.game_speed
-                ]), [1, 2])
+                    closest_pipe.x,
+                    closest_pipe.gap_bottom,
+                    closest_pipe.gap_top,
+                    self.game_speed
+                ]), [1, 6])
                 if self.done:
                     reward = 0
                 else:
