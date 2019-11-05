@@ -2,13 +2,14 @@ from main import Game
 import numpy as np
 from collections import deque
 import random
-from keras.models import Sequential
+from keras.models import Sequential, load_model
 from keras.layers import Dense
 from keras.optimizers import Adam
+import os
 
 
 class AIPlayer:
-    def __init__(self, state_size, action_size):
+    def __init__(self, state_size, action_size, load=False):
         self.state_size = state_size
         self.action_size = action_size
         self.memory = deque(maxlen=2000)
@@ -18,9 +19,11 @@ class AIPlayer:
         self.epsilon_min = .01
         self.epsilon_decay = .99995
         self.learning_rate = .001
-        self.model = self._build_model()
+        self.model = self._build_model(load)
 
-    def _build_model(self):
+    def _build_model(self, load):
+        if load and os.path.exists("flappy_model.h5"):
+            return load_model("flappy_model.h5")
         model = Sequential()
         model.add(Dense(100, input_dim=self.state_size,
                         activation='relu'))
@@ -32,9 +35,8 @@ class AIPlayer:
                       optimizer=Adam(lr=self.learning_rate))
         return model
 
-    def remember(self, state, action, next_state, done, reward, num_times):
-        for _ in range(num_times):
-            self.memory.append((state, action, next_state, done, reward))
+    def remember(self, state, action, next_state, done, reward):
+        self.memory.append((state, action, next_state, done, reward))
 
     def act(self, state):
         if np.random.rand() <= self.epsilon:
@@ -55,6 +57,7 @@ class AIPlayer:
         for state, action, next_state, done, reward in mini_batch:
             target = reward
             if not done:
+                # look into adding more depth to this function
                 target = (reward + self.gamma *
                           np.amax(self.model.predict(next_state)[0]))
 
@@ -80,4 +83,4 @@ class AIPlayer:
 
 
 if __name__ == '__main__':
-    Game(ai_player=AIPlayer(6, 2)).run()
+    Game(ai_player=AIPlayer(6, 2, load=False)).run()

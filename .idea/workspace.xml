@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="79da87fb-090d-4bf7-96e0-cdfdab6e4c93" name="Default Changelist" comment="finished">
+    <list default="true" id="79da87fb-090d-4bf7-96e0-cdfdab6e4c93" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AIPlayer.py" beforeDir="false" afterPath="$PROJECT_DIR$/AIPlayer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game.kv" beforeDir="false" afterPath="$PROJECT_DIR$/Game.kv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,8 +19,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/AIPlayer.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-240">
-                  <caret line="48" column="43" lean-forward="true" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
+                <state relative-caret-position="-18">
+                  <caret line="59" column="62" selection-start-line="59" selection-start-column="62" selection-end-line="59" selection-end-column="62" />
                   <folding>
                     <element signature="e#0#21#0" expanded="true" />
                   </folding>
@@ -45,8 +44,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="378">
-                  <caret line="130" column="20" selection-start-line="130" selection-start-column="20" selection-end-line="130" selection-end-column="20" />
+                <state relative-caret-position="228">
+                  <caret line="110" column="37" selection-start-line="110" selection-start-column="37" selection-end-line="110" selection-end-column="37" />
                   <folding>
                     <element signature="e#0#24#0" expanded="true" />
                   </folding>
@@ -57,8 +56,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Game.kv">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="152">
-                  <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
+                <state relative-caret-position="174">
+                  <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
                 </state>
               </provider>
             </entry>
@@ -219,7 +218,31 @@
       <option name="presentableId" value="Default" />
       <updated>1571442449141</updated>
     </task>
+    <task id="LOCAL-00001" summary="Stripped away obstacles to focus on learning how to stay afloat. Found a bug that was short-circuiting the losing state into the next episode.">
+      <created>1572965884693</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1572965884694</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Found that the bird learned fairly well without obstacles, but could be improved. I added back the obstacles to see if it could navigate them. It is having a very hard time getting past the first one. I'm considering changing the part of the Q-function that calculates future reward. My suspicion is that it is not able to look far enough ahead (effectively) which leads to the short-sighted temptation of moving into larger empty spaces despite the oncoming obstacle.">
+      <created>1572973421722</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1572973421722</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -230,11 +253,11 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27528676" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.20437956" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39937434" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3295099" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.548488" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
@@ -243,6 +266,21 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Stripped away obstacles to focus on learning how to stay afloat. Found a bug that was short-circuiting the losing state into the next episode." />
+    <MESSAGE value="Found that the bird learned fairly well without obstacles, but could be improved. I added back the obstacles to see if it could navigate them. It is having a very hard time getting past the first one. I'm considering changing the part of the Q-function that calculates future reward. My suspicion is that it is not able to look far enough ahead (effectively) which leads to the short-sighted temptation of moving into larger empty spaces despite the oncoming obstacle." />
+    <option name="LAST_COMMIT_MESSAGE" value="Found that the bird learned fairly well without obstacles, but could be improved. I added back the obstacles to see if it could navigate them. It is having a very hard time getting past the first one. I'm considering changing the part of the Q-function that calculates future reward. My suspicion is that it is not able to look far enough ahead (effectively) which leads to the short-sighted temptation of moving into larger empty spaces despite the oncoming obstacle." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/../FlappyBirden/lib/python3.7/site-packages/kivy/app.py">
@@ -282,27 +320,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Game.kv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AIPlayer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-240">
-          <caret line="48" column="43" lean-forward="true" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="174">
+          <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="130" column="20" selection-start-line="130" selection-start-column="20" selection-end-line="130" selection-end-column="20" />
+        <state relative-caret-position="228">
+          <caret line="110" column="37" selection-start-line="110" selection-start-column="37" selection-end-line="110" selection-end-column="37" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AIPlayer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-18">
+          <caret line="59" column="62" selection-start-line="59" selection-start-column="62" selection-end-line="59" selection-end-column="62" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -107,28 +107,29 @@ class Background(Widget):
                 if self.done:
                     reward = 0
                 else:
-                    reward = 1
+                    # trying out a higher reward when the bird is
+                    # in the pipe gap
+                    if closest_pipe.x < self.bird.x:
+                        reward = 2
+                    else:
+                        reward = 1
 
                 if self.prev_state is not None:
-                    # this makes more memories of poor choices
-                    # still experimenting if this improves learning
-                    if self.done:
-                        impact = 5
-                    else:
-                        impact = 1
                     self.ai_player.remember(
                         self.prev_state,
                         self.prev_action,
                         state,
                         self.done,
                         reward,
-                        impact
                     )
 
                 self.prev_action = action = self.ai_player.act(state)
                 self.prev_state = state
                 if self.elapsed > 32:
                     self.ai_player.replay(32)
+
+                if self.elapsed % 1000 == 0:
+                    self.ai_player.model.save("flappy_model.h5")
 
                 if action:
                     self.jump()
