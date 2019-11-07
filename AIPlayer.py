@@ -14,10 +14,10 @@ class AIPlayer:
         self.action_size = action_size
         self.memory = deque(maxlen=2000)
         self.gamma = .95
-        self.epsilon = 1
+        self.epsilon = .01
         self.action_bias = 60
         self.epsilon_min = .01
-        self.epsilon_decay = .99995
+        self.epsilon_decay = .9999
         self.learning_rate = .001
         self.model = self._build_model(load)
 
@@ -83,4 +83,4 @@ class AIPlayer:
 
 
 if __name__ == '__main__':
-    Game(ai_player=AIPlayer(6, 2, load=False)).run()
+    Game(ai_player=AIPlayer(4, 2, load=True)).run()

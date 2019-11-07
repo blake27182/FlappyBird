@@ -19,8 +19,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/AIPlayer.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-18">
-                  <caret line="59" column="62" selection-start-line="59" selection-start-column="62" selection-end-line="59" selection-end-column="62" />
+                <state relative-caret-position="750">
+                  <caret line="85" column="43" selection-start-line="85" selection-start-column="43" selection-end-line="85" selection-end-column="43" />
                   <folding>
                     <element signature="e#0#21#0" expanded="true" />
                   </folding>
@@ -44,8 +44,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="228">
-                  <caret line="110" column="37" selection-start-line="110" selection-start-column="37" selection-end-line="110" selection-end-column="37" />
+                <state relative-caret-position="214">
+                  <caret line="130" column="21" lean-forward="true" selection-start-line="130" selection-start-column="21" selection-end-line="130" selection-end-column="21" />
                   <folding>
                     <element signature="e#0#24#0" expanded="true" />
                   </folding>
@@ -89,8 +89,8 @@
         <option value="$PROJECT_DIR$/main_page.kv" />
         <option value="$PROJECT_DIR$/../../test.py" />
         <option value="$PROJECT_DIR$/Game.kv" />
-        <option value="$PROJECT_DIR$/AIPlayer.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/AIPlayer.py" />
       </list>
     </option>
   </component>
@@ -232,7 +232,14 @@
       <option name="project" value="LOCAL" />
       <updated>1572973421722</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Trying out a higher reward when the bird is in the pipe gap, to encourage that area. I also added a model save every 1000 frames for more long-term training">
+      <created>1572992211219</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1572992211219</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView">
@@ -253,7 +260,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.20437956" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2721585" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39937434" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -280,7 +287,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Stripped away obstacles to focus on learning how to stay afloat. Found a bug that was short-circuiting the losing state into the next episode." />
     <MESSAGE value="Found that the bird learned fairly well without obstacles, but could be improved. I added back the obstacles to see if it could navigate them. It is having a very hard time getting past the first one. I'm considering changing the part of the Q-function that calculates future reward. My suspicion is that it is not able to look far enough ahead (effectively) which leads to the short-sighted temptation of moving into larger empty spaces despite the oncoming obstacle." />
-    <option name="LAST_COMMIT_MESSAGE" value="Found that the bird learned fairly well without obstacles, but could be improved. I added back the obstacles to see if it could navigate them. It is having a very hard time getting past the first one. I'm considering changing the part of the Q-function that calculates future reward. My suspicion is that it is not able to look far enough ahead (effectively) which leads to the short-sighted temptation of moving into larger empty spaces despite the oncoming obstacle." />
+    <MESSAGE value="Trying out a higher reward when the bird is in the pipe gap, to encourage that area. I also added a model save every 1000 frames for more long-term training" />
+    <option name="LAST_COMMIT_MESSAGE" value="Trying out a higher reward when the bird is in the pipe gap, to encourage that area. I also added a model save every 1000 frames for more long-term training" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/../FlappyBirden/lib/python3.7/site-packages/kivy/app.py">
@@ -327,8 +335,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="110" column="37" selection-start-line="110" selection-start-column="37" selection-end-line="110" selection-end-column="37" />
+        <state relative-caret-position="214">
+          <caret line="130" column="21" lean-forward="true" selection-start-line="130" selection-start-column="21" selection-end-line="130" selection-end-column="21" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
@@ -337,8 +345,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/AIPlayer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-18">
-          <caret line="59" column="62" selection-start-line="59" selection-start-column="62" selection-end-line="59" selection-end-column="62" />
+        <state relative-caret-position="750">
+          <caret line="85" column="43" selection-start-line="85" selection-start-column="43" selection-end-line="85" selection-end-column="43" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>

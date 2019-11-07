@@ -44,6 +44,9 @@ class Background(Widget):
         self.prev_action = 0
         self.elapsed = 0
 
+        self.pipe1.center_y = randint(-600, -100)
+        self.pipe2.center_y = randint(-600, -100)
+
     best_score = NumericProperty(0)
     epsilon = NumericProperty(1)
     score = NumericProperty(0)
@@ -66,6 +69,7 @@ class Background(Widget):
         self.bird.y += self.bird_speed
         self.bird_speed -= .5
 
+        # new pipe area
         if self.pipe1.x < -200:
             self.pipe1.x = self.width
             self.pipe1.center_y = randint(-600, -100)
@@ -97,22 +101,25 @@ class Background(Widget):
                     closest_pipe = self.pipe2
 
                 state = np.reshape(np.array([
-                    self.bird_speed,
+                    # self.bird_speed,
                     self.bird.y,
                     closest_pipe.x,
                     closest_pipe.gap_bottom,
                     closest_pipe.gap_top,
-                    self.game_speed
-                ]), [1, 6])
+                    # self.game_speed
+                ]), [1, 4])
                 if self.done:
                     reward = 0
                 else:
                     # trying out a higher reward when the bird is
                     # in the pipe gap
-                    if closest_pipe.x < self.bird.x:
-                        reward = 2
+                    if closest_pipe.gap_top > self.bird.top\
+                            and closest_pipe.gap_bottom < self.bird.y:
+                        reward = 20
                     else:
                         reward = 1
+
+                print("reward:", reward)
 
                 if self.prev_state is not None:
                     self.ai_player.remember(
@@ -125,8 +132,8 @@ class Background(Widget):
 
                 self.prev_action = action = self.ai_player.act(state)
                 self.prev_state = state
-                if self.elapsed > 32:
-                    self.ai_player.replay(32)
+                # if self.elapsed > 32:
+                #     self.ai_player.replay(32)
 
                 if self.elapsed % 1000 == 0:
                     self.ai_player.model.save("flappy_model.h5")
@@ -155,9 +162,9 @@ class Background(Widget):
         self.bird_speed = 0
         self.bird.center_y = self.center_y
         self.pipe1.center_x = self.center_x - 100
-        self.pipe1.center_y = -400
+        self.pipe1.center_y = randint(-600, -100)
         self.pipe2.center_x = self.width
-        self.pipe2.center_y = -400
+        self.pipe2.center_y = randint(-600, -100)
         self.prev_state = None
         self.prev_action = 0
 
